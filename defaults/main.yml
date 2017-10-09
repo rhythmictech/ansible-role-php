@@ -1,0 +1,71 @@
+---
+# List of PHP packages / modules to install
+#  These are prepended with php_base_version
+php_packages:
+  - php56u
+  - php56u-common
+  - php56u-cli
+
+
+php_default_config:
+  max_execution_time: 30
+  max_input_time: 60
+  memory_limit: '128M'
+  max_input_vars: '1000'
+  upload_max_filesize: '2M'
+  max_file_uploads: 20
+  post_max_size: '8M'
+  output_buffering: '4096'
+  output_compression: 'Off'
+  timezone: 'America/New_York'
+
+php_fpm_package: php56u-fpm
+
+# Install and configure PHP-FPM if true
+php_use_fpm: false
+
+# A list of dicts for creating PHP-FPM site definitions
+#  Example:
+#    php_fpm_sites:
+#      - name: www1
+#        listen: 0.0.0.0:9000
+#        listen_socket: false
+#        user: apache
+#        group: apache
+#        max_children: 100
+#        start_servers: 2
+#        min_spare_servers: 1
+#        max_spare_servers: 3
+#        max_requests: 1000
+#        chdir: '/'
+#        php_values:
+#          - setting: 'session.save_handler'
+#            value: 'files'
+#        env_vars:
+#          - var: TMP
+#            value: '/var/tmp'
+#      - name: www2
+#        listen: /run/php-fpm/www2.sock
+#        listen_socket: true
+#        user: apache
+#        group: apache
+#        max_children: 100
+#        start_servers: 2
+#        min_spare_servers: 1
+#        max_spare_servers: 3
+#        max_requests: 1000
+#        chdir: '/'
+#        php_values:
+#          - setting: 'session.save_handler'
+#            value: 'files'
+#        php_flags:
+#          - setting: 'display_errors'
+#            value: 'off'
+#        env_vars:
+#          - var: TMP
+#            value: '/var/tmp'
+#
+php_fpm_sites: []
+
+
+

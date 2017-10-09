@@ -1,0 +1,157 @@
+[PHP]
+
+; General Settings
+
+engine = On
+
+short_open_tag = Off
+asp_tags = Off
+
+zend.enable_gc = On
+
+auto_prepend_file =
+auto_append_file =
+default_mimetype = "text/html"
+default_charset = "UTF-8"
+enable_dl = Off
+
+; Limits
+max_execution_time = {{ _php_config['max_execution_time']|default(30) }}
+
+max_input_time = {{ _php_config['max_input_time']|default(60) }}
+
+memory_limit = {{ _php_config['memory_limit']|default('128M') }}
+
+max_input_vars = {{ _php_config['max_input_vars']|default('1000') }}
+
+;upload_tmp_dir =
+upload_max_filesize = {{ _php_config['upload_max_filesize']|default('2M') }}
+max_file_uploads = {{ _php_config['max_file_uploads']|default('20') }}
+
+post_max_size = {{ _php_config['post_max_size']|default('8M') }}
+
+; Performance Settings
+output_buffering = {{ _php_config['output_buffering']|default('4096') }}
+
+zlib.output_compression = {{ _php_config['output_compression']|default('Off') }}
+
+implicit_flush = Off
+
+; Security/Logging Settings
+error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
+
+display_errors = Off
+
+display_startup_errors = Off
+
+log_errors = On
+
+log_errors_max_len = 1024
+
+ignore_repeated_errors = Off
+ignore_repeated_source = Off
+
+report_memleaks = On
+expose_php = {{ _php_config['expose_php']|default('On') }}
+
+variables_order = "{{ _php_config['variables_order']|default('GPCS') }}"
+request_order = "GP"
+register_argc_argv = Off
+
+track_errors = Off
+
+html_errors = On
+
+; Obscure settings
+precision = 14
+serialize_precision = 17
+
+auto_globals_jit = On
+
+
+file_uploads = On
+allow_url_fopen = On
+allow_url_include = Off
+default_socket_timeout = 60
+
+[Date]
+date.timezone = {{ _php_config['timezone']|default('GMT') }}
+
+[Pdo_mysql]
+pdo_mysql.cache_size = 2000
+pdo_mysql.default_socket=
+
+[mail function]
+sendmail_path = /usr/sbin/sendmail -t -i
+
+mail.add_x_header = On
+
+[SQL]
+sql.safe_mode = Off
+
+[MySQLi]
+mysqli.max_persistent = -1
+mysqli.allow_persistent = On
+mysqli.max_links = -1
+mysqli.cache_size = 2000
+mysqli.default_port = 3306
+mysqli.default_socket =
+mysqli.default_host =
+mysqli.default_user =
+mysqli.default_pw =
+
+; Allow or prevent reconnect
+mysqli.reconnect = Off
+
+[mysqlnd]
+mysqlnd.collect_statistics = On
+mysqlnd.collect_memory_statistics = Off
+
+[PostgreSQL]
+pgsql.allow_persistent = On
+pgsql.auto_reset_persistent = Off
+pgsql.max_persistent = -1
+pgsql.max_links = -1
+pgsql.ignore_notice = 0
+pgsql.log_notice = 0
+
+[Session]
+session.save_handler = files
+session.use_strict_mode = 0
+session.use_cookies = 1
+session.use_only_cookies = 1
+session.name = PHPSESSID
+session.auto_start = 0
+session.cookie_lifetime = 0
+session.cookie_path = /
+session.cookie_domain =
+session.cookie_httponly =
+session.serialize_handler = php
+session.gc_probability = 1
+session.gc_divisor = 1000
+
+session.gc_maxlifetime = 1440
+
+session.referer_check =
+session.cache_limiter = nocache
+session.cache_expire = 180
+session.use_trans_sid = 0
+session.hash_function = 0
+session.hash_bits_per_character = 5
+url_rewriter.tags = "a=href,area=href,frame=src,input=src,form=fakeentry"
+
+[Tidy]
+tidy.clean_output = Off
+
+[soap]
+soap.wsdl_cache_enabled=1
+soap.wsdl_cache_dir="/tmp"
+soap.wsdl_cache_ttl=86400
+
+; Sets the size of the cache limit. (Max. number of WSDL files to cache)
+soap.wsdl_cache_limit = 5
+
+
+[ldap]
+; Sets the maximum number of open links or -1 for unlimited.
+ldap.max_links = -1

@@ -1,0 +1,53 @@
+---
+
+- name: merge php defaults with override values
+  set_fact: _php_config="{{ php_default_config|combine(php_config|default({})) }}"
+  tags: ['php']
+
+- name: install ius repo package
+  yum: name=https://centos{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm state=present
+  tags: ['php']
+
+- name: install ius rpm gpg key
+  rpm_key: state=present key=/etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
+  tags: ['php']
+
+- name: install php packages
+  yum: name="{{ item }}" state=present
+  with_items: "{{ php_packages }}"
+  tags: ['php']
+
+- name: place php.ini
+  template: src=etc.php.ini.j2 dest=/etc/php.ini owner=root group=root mode=0640
+  notify:
+    - reload httpd
+    - reload php-fpm
+  tags: ['php']
+
+- name: install php-fpm
+  yum: name={{ php_fpm_package }} state=present
+  when: php_use_fpm == true
+  tags: ['php']
+
+# The RPM installs a www.conf that we don't want
+- name: remove rpm-provided php-fpm site config
+  file: path=/etc/php-fpm.d/www.conf state=absent
+  when: php_use_fpm == true
+  tags: ['php']
+
+- name: place php-fpm base configuration
+  template: src=etc.php-fpm.conf.j2 dest=/etc/php-fpm.conf mode=0644 owner=root group=root
+  when: php_use_fpm == true
+  notify: reload php-fpm
+  tags: ['php']
+
+- name: place php-fpm site configuration
+  template: src=etc.php-fpm.d.sites.conf.j2 dest=/etc/php-fpm.d/sites.conf mode=0644 owner=root group=root
+  when: php_use_fpm == true
+  notify: reload php-fpm
+  tags: ['php']
+
+- name: start php-fpm
+  service: name=php-fpm state=started enabled=true
+  when: php_use_fpm == true
+  tags: ['php']

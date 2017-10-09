@@ -1,0 +1,38 @@
+; {{ ansible_managed }}
+{% for site in php_fpm_sites %}
+[{{ site.name }}]
+listen = {{ site.listen }}
+{% if site.listen_socket == true %}
+listen.owner = {{ site.user }}
+listen.group = {{ site.group }}
+listen.mode = 0660
+{% else %}
+listen.allowed_clients = {{ site.allowed_clients|default('127.0.0.1') }}
+{% endif %}
+
+user = {{ site.user }}
+group = {{ site.group }}
+
+pm = dynamic
+pm.max_children = {{ site.max_children }}
+pm.start_servers = {{ site.start_servers }}
+pm.min_spare_servers = {{ site.min_spare_servers }}
+pm.max_spare_servers = {{ site.max_spare_servers }}
+pm.max_requests = {{ site.max_requests }}
+
+chdir = {{ site.chdir }}
+catch_workers_output = yes
+
+{% for php_value in site.php_values|default([]) %}
+php_value[{{ php_value.setting }}] = {{ php_value.value }}
+{% endfor %}
+
+{% for php_flag in site.php_flags|default([]) %}
+php_flag[{{ php_flag.setting }}] = {{ php_flag.value }}
+{% endfor %}
+
+{% for env_var in site.env_vars|default([]) %}
+env[{{ env_var.var }}] = {{ env_value.value }}
+{% endfor %}
+
+{% endfor %}
