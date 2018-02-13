@@ -24,6 +24,8 @@ php_fpm_package: php56u-fpm
 # Install and configure PHP-FPM if true
 php_use_fpm: false
 
+php_fpm_process_max: 128
+
 # A list of dicts for creating PHP-FPM site definitions
 #  Example:
 #    php_fpm_sites:
