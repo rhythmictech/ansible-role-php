@@ -18,7 +18,7 @@
   tags: ['php']
 
 - name: install ius rpm gpg key
-  rpm_key: state=present key=/etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
+  rpm_key: state=present key=/etc/pki/rpm-gpg/RPM-GPG-KEY-IUS-{{ ansible_distribution_major_version }}
   tags: ['php']
 
 - name: install php packages
