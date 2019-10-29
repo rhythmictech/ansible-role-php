@@ -1,4 +1,13 @@
 ---
+# compat for amazon linux
+- set_fact: ansible_distribution_major_version=6
+  when: ansible_distribution == "Amazon" and ansible_distribution_major_version == "NA"
+  tags: ['php']
+
+- set_fact: ansible_distribution_major_version=7
+  when: ansible_distribution == "Amazon" and ansible_distribution_major_version == "2"
+  tags: ['php']
+
 
 - name: merge php defaults with override values
   set_fact: _php_config="{{ php_default_config|combine(php_config|default({})) }}"
