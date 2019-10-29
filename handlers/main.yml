@@ -8,5 +8,5 @@
   when: php_use_fpm
 
 - name: reload httpd
-  service: name=apache state=reloaded
+  service: name=httpd state=reloaded
   when: not php_use_fpm
