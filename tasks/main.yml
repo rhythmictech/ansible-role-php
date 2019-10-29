@@ -14,7 +14,7 @@
   tags: ['php']
 
 - name: install ius repo package
-  yum: name=https://centos{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm state=present
+  yum: name=https://centos{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm state=present lock_timeout=180
   tags: ['php']
 
 - name: install ius rpm gpg key
@@ -22,7 +22,7 @@
   tags: ['php']
 
 - name: install php packages
-  yum: name="{{ item }}" state=present
+  yum: name="{{ item }}" state=present lock_timeout=180
   with_items: "{{ php_packages }}"
   tags: ['php']
 
@@ -34,7 +34,7 @@
   tags: ['php']
 
 - name: install php-fpm
-  yum: name={{ php_fpm_package }} state=present
+  yum: name={{ php_fpm_package }} state=present lock_timeout=180
   when: php_use_fpm == true
   tags: ['php']
 
