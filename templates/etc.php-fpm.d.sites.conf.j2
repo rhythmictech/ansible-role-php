@@ -32,7 +32,7 @@ php_flag[{{ php_flag.setting }}] = {{ php_flag.value }}
 {% endfor %}
 
 {% for env_var in site.env_vars|default([]) %}
-env[{{ env_var.var }}] = {{ env_value.value }}
+env[{{ env_var.var }}] = {{ env_var.value }}
 {% endfor %}
 
 {% endfor %}
