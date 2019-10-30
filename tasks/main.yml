@@ -22,8 +22,7 @@
   tags: ['php']
 
 - name: install php packages
-  yum: name="{{ item }}" state=present lock_timeout=180
-  with_items: "{{ php_packages }}"
+  yum: name="{{ php_packages }}" state=present lock_timeout=180
   tags: ['php']
 
 - name: place php.ini
@@ -40,7 +39,7 @@
 
 # The RPM installs a www.conf that we don't want
 - name: remove rpm-provided php-fpm site config
-  file: path=/etc/php-fpm.d/www.conf state=absent
+  copy: dest=/etc/php-fpm.d/www.conf owner=root group=root mode=0644 content=""
   when: php_use_fpm == true
   tags: ['php']
 
