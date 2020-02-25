@@ -51,3 +51,12 @@
   service: name=php-fpm state=started enabled=true
   when: php_use_fpm == true
   tags: ['php']
+
+- name: ensure that custom php-fpm logrotate file is placed
+  template:
+    src: etc.logrotate.d.php-fpm.j2
+    dest: /etc/logrotate.d/php-fpm 
+    owner: root
+    group: root
+    mode: 0644
+  tags: ['php', 'logrotate']
