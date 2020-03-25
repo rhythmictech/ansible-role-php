@@ -1,0 +1,13 @@
+/var/log/php-fpm/error.log {
+    missingok
+    notifempty
+    compress
+    dateext
+    weekly
+    rotate 4
+    sharedscripts
+    delaycompress
+    postrotate
+	/bin/kill -SIGUSR1 `cat /run/php-fpm/php-fpm.pid 2>/dev/null` 2>/dev/null || true
+    endscript
+}
