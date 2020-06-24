@@ -69,5 +69,4 @@ php_fpm_process_max: 128
 #
 php_fpm_sites: []
 
-
-
+php_version: 5.6
