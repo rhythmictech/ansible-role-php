@@ -1,3 +1,6 @@
+ # DO NOT UPDATE OR MAKE NEW DEPENDENCIES ON THIS PROJECT. IT HAS BEEN MOVED TO GITHUB
+
+
 Ansible Role for PHP
 ====================
 
