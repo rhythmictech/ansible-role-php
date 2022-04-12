@@ -33,7 +33,7 @@
   tags: ['php']
 
 - name: place php.ini
-  template: src=etc.php.ini.j2 dest=/etc/php.ini owner=root group=root mode=0640
+  template: src=etc.php.ini.j2 dest=/etc/php.ini owner=root group=root mode=0644
   notify:
     - reload httpd
     - reload php-fpm
